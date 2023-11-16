@@ -1,0 +1,132 @@
+@import "../../styles/mixins";
+
+.task {
+  padding: 1rem;
+  margin-bottom: 0.5rem;
+  display: flex;
+  align-items: flex-end;
+  border: 1px solid $grey;
+  border-radius: 0.25rem;
+  animation:zoomIn 1s ease-in-out;
+  &.collapsedTask {
+    .moveTask {
+      margin-bottom: 0.5rem;
+      font-size: 1.5rem;
+      padding: 0.3rem 0.5rem;
+    }
+  }
+  &.moving {
+    animation: zoomOut 1s ease-in-out
+  }
+
+  form {
+    display: flex;
+    flex-direction: column;
+    text-align: center;
+    align-items: center;
+    margin: 0 0.25rem;
+
+    .input {
+      background-color: transparent;
+      border: 1px solid $white;
+      border-radius: 0.25rem;
+      color: $grey;
+      text-align: center;
+      resize: none;
+      display: flex;
+      font-family: "Kanit", sans-serif;
+
+      &:hover {
+        cursor: pointer;
+        border: 1px solid $grey;
+      }
+
+      &:focus {
+        outline: none;
+        border-color: $gold;
+        color: $gold;
+      }
+
+      &::placeholder {
+        color: $grey;
+      }
+    }
+
+    .title {
+      padding: 0.5rem 0;
+      width: 100%;
+      font-size: 1.1rem;
+      margin: 0 0.5rem 0.5rem;
+      &:hover {
+        cursor: text;
+      }
+    }
+
+    .description {
+      margin-bottom: 0.5rem;
+      padding: 0.5rem 0;
+      width: 100%;
+      font-size: 1.1rem;
+
+      &:hover {
+        cursor: text;
+      }
+    }
+
+    &.collapsed {
+      flex-direction: row;
+      align-content: center;
+
+      .title {
+        margin: 0 0.5rem;
+
+        &:hover {
+          border: 1px solid $grey;
+          cursor: default;
+        }
+      }
+
+      .description,
+      label {
+        display: none;
+      }
+
+      label.selected {
+        display: inline-block;
+        font-weight: 500;
+      }
+
+      .button {
+        padding: 0.025rem 0.5rem;
+      }
+
+      &:hover .button {
+        display: inline-block;
+      }
+    }
+    .editTask {
+      background-color: $green;
+      border-color: $green;
+      opacity: 0.8;
+      &:hover {
+        opacity: 1;
+      }
+    }
+  }
+}
+@keyframes zoomOut {
+  from {
+    transform: scale(1);
+  }
+  to {
+    transform: scale(0);
+  }
+}
+@keyframes zoomIn {
+  from {
+    transform: scale(0);
+  }
+  to {
+    transform: scale(1);
+  }
+}
