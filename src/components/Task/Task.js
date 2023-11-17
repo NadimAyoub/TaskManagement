@@ -21,13 +21,17 @@ export default function Task(props) {
     useState(false);
   const [isTaskMoving, setIsTaskMoving] = useState(false);
 
+  //handling task action
   function handleSubmit(event) {
     event.preventDefault();
 
+    //handle if task is being saved or edited
     if (formAction === "save") {
+      //if tasks is being edited
       if (collapsed) {
         setCollapsed(false);
       } else {
+        //if tasks is being saved
         let newTask = {
           id: task?.id,
           title: event?.target?.elements?.title?.value,
@@ -41,12 +45,14 @@ export default function Task(props) {
       }
     }
 
+    //if task is being deleted
     if (formAction === "delete") {
       setPopupOpen(true);
       setTaskID(task?.id);
     }
   }
 
+  // function to handle moving the task to the left
   function handleMoveLeft() {
     let newStatus = "";
 
@@ -64,6 +70,7 @@ export default function Task(props) {
     }
   }
 
+  // function to handle moving the task to the right
   function handleMoveRight() {
     let newStatus = "";
 
@@ -81,6 +88,7 @@ export default function Task(props) {
     }
   }
 
+  // handle title changes to enable the user to save or not
   function handleOnChange(event) {
     if (event?.target?.value !== "") {
       setIsSaveDisabled(false);
@@ -90,10 +98,17 @@ export default function Task(props) {
   }
 
   useEffect(() => {
+    // disabling move buttons if the task is on any extremity
     if (task?.status === "Completed") {
       setIsMoveButtonRightDisabled(true);
     } else if (task?.status === "Task List") {
       setIsMoveButtonLeftDisabled(true);
+    }
+    //disabling save button if task title is empty
+    if (task?.title === "") {
+      setIsSaveDisabled(true);
+    } else {
+      setIsSaveDisabled(false);
     }
   }, [task?.status]);
 
@@ -109,7 +124,7 @@ export default function Task(props) {
         onClick={handleMoveLeft}
         className={clsx(
           "button moveTask left",
-          isMoveButtonLeftDisabled && "disabled"
+          (isMoveButtonLeftDisabled || !collapsed) && "disabled"
         )}
       >
         &#171;
@@ -154,7 +169,7 @@ export default function Task(props) {
         onClick={handleMoveRight}
         className={clsx(
           "button moveTask right",
-          isMoveButtonRightDisabled && "disabled"
+          (isMoveButtonRightDisabled || !collapsed) && "disabled"
         )}
       >
         &#187;

@@ -7,6 +7,7 @@ export default function Popup(props) {
 
   const [closing, setClosing] = useState(false);
 
+  //Delete task function
   const deleteGivenTask = (taskID) => {
     deleteTask(taskID);
     setClosing(true);
@@ -14,6 +15,8 @@ export default function Popup(props) {
       closePopup();
     }, 900);
   };
+
+  //close delete popup
   const closeDeletePopup = () => {
     setClosing(true);
     setTimeout(() => {

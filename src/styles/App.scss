@@ -21,6 +21,11 @@ body {
   p {
     animation: fadeInUp 1s ease-out forwards;
   }
+  .popup {
+    button {
+      animation: fadeInUp 1s ease-out forwards;
+    }
+  }
 }
 
 h1 {

@@ -17,6 +17,7 @@ function App() {
     loadTasksFromLocalStorage();
   }, []);
 
+  // add empty task function
   function addEmptyTask(status) {
     const lastTask = tasks[tasks.length - 1];
 
@@ -32,12 +33,12 @@ function App() {
         id: newTaskId,
         title: "",
         description: "",
-        urgency: "",
         status: status,
       },
     ]);
   }
 
+  // add task function
   function addTask(taskToAdd) {
     let filteredTasks = tasks.filter((task) => {
       return task.id !== taskToAdd.id;
@@ -46,10 +47,10 @@ function App() {
     let newTaskList = [...filteredTasks, taskToAdd];
 
     setTasks(newTaskList);
-
     saveTasksToLocalStorage(newTaskList);
   }
 
+  //function to delete task
   function deleteTask(taskId) {
     let filteredTasks = tasks.filter((task) => {
       return task.id !== taskId;
@@ -60,6 +61,7 @@ function App() {
     saveTasksToLocalStorage(filteredTasks);
   }
 
+  // function to move tasks between different statuses
   function moveTask(id, newStatus) {
     let task = tasks.filter((task) => {
       return task.id === id;
@@ -78,10 +80,12 @@ function App() {
     saveTasksToLocalStorage(newTaskList);
   }
 
+  // save added tasks to local storage
   function saveTasksToLocalStorage(tasks) {
     localStorage.setItem("tasks", JSON.stringify(tasks));
   }
 
+  // load saved tasks from local storage=
   function loadTasksFromLocalStorage() {
     let loadedTasks = localStorage.getItem("tasks");
 
@@ -97,7 +101,8 @@ function App() {
       <h1>Task Management</h1>
       <main>
         <section>
-          {statuses?.map((singleStatus, index) => {
+          {statuses?.map((singleStatus) => {
+            // Display all statuses from the array
             return (
               <Status
                 tasks={tasks}
@@ -114,6 +119,7 @@ function App() {
         </section>
       </main>
       {isPopupOpen && (
+        // Delete confirmation popup
         <Popup
           taskID={taskID}
           isPopupOpen={isPopupOpen}

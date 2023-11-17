@@ -18,18 +18,21 @@ export default function Status(props) {
 
   let taskList, tasksForStatus;
 
+  //function for initial task add
   function handleAddEmpty() {
     setIsSaveDisabled(true);
     addEmptyTask(status);
   }
 
   if (tasks) {
+    //filter tasks based on status
     tasksForStatus = tasks.filter((task) => {
       return task.status === status;
     });
   }
 
   if (tasksForStatus) {
+    //display tasks based on their status
     taskList = tasksForStatus.map((task) => {
       return (
         <Task
